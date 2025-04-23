@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('email')->unique(); // Agregando restricción única para evitar duplicados de correos electrónicos
             $table->string('password');
+            $table->integer('phone');
+            $table->date('registration_date')->nullable(); // Permitirá valores nulos en caso de que no siempre se tenga esta información
             $table->rememberToken();
             $table->timestamps();
         });
