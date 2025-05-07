@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class VeterinarianController extends Controller
 {
+    public function index()
+    {
+        $veterinarians = Veterinarian::all();
+        return view('veterinarians.index', compact('veterinarians'));
+    }
+
     public function create()
     {
         return view('veterinarians.create');
@@ -14,22 +20,45 @@ class VeterinarianController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
-            'phone' => 'required|string|max:15',
-            'hours' => 'required|string|max:255',
-            'services_offered' => 'required|string|max:500',
+        $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+            'hours' => 'required',
+            'services_offered' => 'required',
         ]);
 
-        Veterinarian::create($validated);
-
-        return redirect()->route('veterinarians.index')
-                         ->with('success', 'Veterinario creado exitosamente.');
+        Veterinarian::create($request->all());
+        return redirect()->route('veterinarians.index');
     }
-    public function index()
-{
-    $veterinarians = Veterinarian::all();
-    return view('veterinarians.index', compact('veterinarians'));
-}
+
+    public function show(Veterinarian $veterinarian)
+    {
+        return view('veterinarians.show', compact('veterinarian'));
+    }
+
+    public function edit(Veterinarian $veterinarian)
+    {
+        return view('veterinarians.edit', compact('veterinarian'));
+    }
+
+    public function update(Request $request, Veterinarian $veterinarian)
+    {
+        $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+            'hours' => 'required',
+            'services_offered' => 'required',
+        ]);
+
+        $veterinarian->update($request->all());
+        return redirect()->route('veterinarians.index');
+    }
+
+    public function destroy(Veterinarian $veterinarian)
+    {
+        $veterinarian->delete();
+        return redirect()->route('veterinarians.index');
+    }
 }
