@@ -17,13 +17,16 @@ class Veterinarian extends Model
         'services_offered',
     ];
 
-    public function requestAppointments()
+    public function services()
     {
-        return $this->hasMany(RequestAppointment::class);
+        //return $this->hasMany(service::class);
     }
 
-    public function adoptionRequests()
+    public function appintment()
     {
-        return $this->hasMany(AdoptionRequest::class);
+        return $this->hasMany(appointment::class);
+    }
+    public function roles(){
+        //return $this->hasOne(role::class);
     }
 }

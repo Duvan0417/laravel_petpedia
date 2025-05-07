@@ -11,4 +11,8 @@ class Type extends Model
         'name',
         'category',
     ];
+    public function request()
+    {
+        return $this->hasMany(Request::class);
+    }
 }

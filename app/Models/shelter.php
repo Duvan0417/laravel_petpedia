@@ -14,4 +14,15 @@ class shelter extends Model
         'email',
         'address',
     ];
+    public function adoptions()
+    {
+        return $this->hasMany(adoption::class);
+    }
+    public function pets()
+    {
+        return $this->hasMany(pet::class);
+    }
+    public function roles(){
+        //return $this->hasOne(role::class);
+    }
 }

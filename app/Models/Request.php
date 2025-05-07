@@ -33,4 +33,12 @@ class Request extends Model
     {
         return $this->belongsTo(Appointment::class);
     }
+    public function services(){
+        //return $this->hasMany(service::class);
+    }
+    
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
 }
