@@ -6,25 +6,25 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
+    /**pg
      * Run the migrations.
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('aswers', function (Blueprint $table) {
             $table->id();
             $table->string('content');
-            $table->string('Creation_Date');
-            $table->unsignedBigInteger('topics_id');
-            $table->unsignedBigInteger('users_id');
-
-            $table->foreign('topic_id')->references('id')->on('topics')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            
+            $table->string('creation_date'); 
+            //$table->foreignId('topic_id')->constrained('topics')->onDelete('cascade');
+            $table->foreignId('users_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
-
         });
+    
+        Schema::enableForeignKeyConstraints();
     }
+    
+    
 
     /**
      * Reverse the migrations.

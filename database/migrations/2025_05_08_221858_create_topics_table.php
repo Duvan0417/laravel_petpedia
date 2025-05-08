@@ -11,24 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notifications', function (Blueprint $table) {
+        Schema::create('topics', function (Blueprint $table) {
             $table->id();
-            $table->string('Title');
-            $table->string('Description');
-
-            //$table->unsignedBigInteger('Trainer_id');
-            //$table->foreign('Trainer_id')->references('id')->on('trainers')->onDelete('cascade');
-
             $table->timestamps();
         });
     }
-    
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('notifications');
+        Schema::dropIfExists('topics');
     }
 };
