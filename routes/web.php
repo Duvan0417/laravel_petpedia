@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AnswerController;
 
-use App\Http\Controllers\AswerController;
 
-Route::resource('aswers', AswerController::class);
+
+
+Route::resource('answers', AnswerController::class);

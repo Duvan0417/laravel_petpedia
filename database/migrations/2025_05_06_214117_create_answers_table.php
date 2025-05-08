@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::disableForeignKeyConstraints();
-        Schema::create('aswers', function (Blueprint $table) {
+        Schema::create('answers', function (Blueprint $table) {
             $table->id();
             $table->string('content');
             $table->string('creation_date'); 
-            //$table->foreignId('topic_id')->constrained('topics')->onDelete('cascade');
+            $table->foreignId('topic_id')->constrained('topics')->onDelete('cascade');
             $table->foreignId('users_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('aswers');
+        Schema::dropIfExists('answers');
     }
 };
