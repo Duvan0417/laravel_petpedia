@@ -20,5 +20,13 @@ class Role extends Model
     public function veterinary(){
         return $this ->hasOne(veterinary::class);
     }
+    protected $fillable = [
+        'name',
+        'description',
+        'trainer_id',
+        'shelter_id',
+        'veterinary_id',
+        'user_id',
+    ];
 
 }

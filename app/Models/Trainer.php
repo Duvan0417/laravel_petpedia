@@ -15,4 +15,13 @@ class Trainer extends Model
     public function service(){
         return $this ->hasMany(service::class);
     }
+    protected $fillable = [
+        'specialty',
+        'experience',
+        'qualifications',
+        'phone',
+        'email',
+        'biography'
+    ];
 }
+

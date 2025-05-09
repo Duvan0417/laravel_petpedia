@@ -18,4 +18,14 @@ class Service extends Model
     public function trainer(){
         return $this ->belongsTo(trainer::class);
     }
+    protected $fillable = [
+        'name',
+        'price',
+        'duration',
+        'description',
+        'trainer_id',
+        'veterinary_id',
+        'request_id'
+    ];
+    
 }

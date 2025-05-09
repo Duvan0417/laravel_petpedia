@@ -18,4 +18,13 @@ class Pet extends Model
     public function trainer(){
         return $this ->belongsTo(trainer::class);
     }
+    protected $fillable = [
+        'specialty',
+        'experience',
+        'qualifications',
+        'phone',
+        'email',
+        'biography',
+    ];
+
 }

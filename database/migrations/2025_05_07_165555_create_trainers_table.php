@@ -13,14 +13,12 @@ return new class extends Migration
     {
         Schema::create('trainers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('specialty');
             $table->integer('experience');
             $table->decimal('qualifications');
-            $table->decimal('phone');
-            $table->string('gmail');
+            $table->string('phone');
+            $table->string('email'); // Cambié gmail por email para consistencia
             $table->longText('biography');
-            $table->foreignId('pet_id')->constrained('pets')->onDelete('set null');
             $table->timestamps();
         });
     }

@@ -17,9 +17,9 @@ return new class extends Migration
             $table->decimal('price');
             $table->date('duration');
             $table->string('description');
-            $table->foreignId('trainer_id')->constrained('trainers')->onDelete('set null');
+            $table->foreignId('trainer_id')->constrained()->onDelete('set null');
             $table->foreignId('veterinary_id')->constrained('veterinarians')->onDelete('set null');
-            $table->foreignId('request_id')->constrained('requests')->onDelete('set null');
+            $table->foreignId('request_id')->constrained()->onDelete('set null');
             $table->timestamps();
         });
     }
