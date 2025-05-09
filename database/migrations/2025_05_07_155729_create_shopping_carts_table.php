@@ -6,33 +6,37 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::create('shopping_carts', function (Blueprint $table) {
-            $table->id(); // This will be your carrito_ID (auto-incrementing)
+            $table->id();
+            $table->date('creation_date');
+            $table->integer('quantity');
+
             
-            // User relationship
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')
                   ->references('id')
                   ->on('users')
                   ->onDelete('cascade');
             
-            // Product relationship
-            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('product_id')->nullable();
             $table->foreign('product_id')
                   ->references('id')
                   ->on('products')
                   ->onDelete('cascade');
-            
-            $table->date('creation_date')->default(now());
-            $table->integer('quantity')->default(1);
-            
-            $table->timestamps(); // Includes created_at and updated_at
+
+                  $table->unsignedBigInteger('order_id')->nullable();
+            $table->foreign('order_id')
+                  ->references('id')
+                  ->on('orders')
+                  ->onDelete('cascade');
+
+            $table->timestamps();
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('shopping_carts');
     }

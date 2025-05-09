@@ -6,25 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::create('inventories', function (Blueprint $table) {
-            $table->id(); // ID autoincremental
+            $table->id();
+            $table->integer('quantity_available')->default(0);
             
-            // Relación con productos
-            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('product_id')->nullable();
             $table->foreign('product_id')
                   ->references('id')
                   ->on('products')
-                  ->onDelete('cascade'); // Eliminación en cascada
-            
-            $table->integer('available_quantity')->default(0); // Cantidad disponible
-            
-            $table->timestamps(); // created_at y updated_at
+                  ->onDelete('cascade');
+
+            $table->timestamps();
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('inventories');
     }

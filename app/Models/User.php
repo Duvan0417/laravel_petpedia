@@ -45,4 +45,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Relación Uno a Muchos con Order
+    public function orders(){
+        return $this->hasMany('App\Models\Order');
+    }
+
+    // Relación Uno a Muchos con ShoppingCart
+    public function shoppingCarts(){
+        return $this->hasMany('App\Models\ShoppingCart');
+    }
 }

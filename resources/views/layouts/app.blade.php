@@ -1,21 +1,40 @@
-<!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title') PetPedia</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Layout 1</title>
+    <!-- Enlaces a los archivos CSS de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+
+
+
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col">
-    <!-- Header -->
-    @include('partials.header')
 
-    <!-- Contenido principal -->
-    <main class="flex-1 pt-24 pb-16 px-6">
-        @yield('content')
-    </main>
+<body>
 
-    <!-- Footer -->
-    @include('partials.footer')
+
+     <!-- Navbar -->
+     @include('includes.navbar')
+     <div class="container mt-4">
+     @yield('content')
+     </div>
+     @include('includes.footer')
+
+
+
+
+ <!-- Enlaces a los archivos JavaScript de Bootstrap (opcional, para funcionalidades adicionales) -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+ <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
 </body>
+
+
+
 </html>
