@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Route;
-// Mostrar formulario de creaciónuse App\Http\Controllers\TrainerController;
+
 //entrenadores
 
 Route::get('/entrenadores/crear', [TrainerController::class, 'create'])->name('trainers.create');
@@ -40,7 +40,6 @@ Route::delete('/servicios/{service}', [ServiceController::class, 'destroy'])->na
 
 
 //roles
-use App\Http\Controllers\RoleController;
 
 // Mostrar el formulario para crear un nuevo rol
 Route::get('/roles/crear', [RoleController::class, 'create'])->name('roles.create');
@@ -64,9 +63,7 @@ Route::put('/roles/{role}', [RoleController::class, 'update'])->name('roles.upda
 Route::delete('/roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
 
 
-
 //pets
-use App\Http\Controllers\PetController;
 
 // Mostrar el formulario para crear una nueva mascota
 Route::get('/mascotas/crear', [PetController::class, 'create'])->name('pets.create');
@@ -88,3 +85,27 @@ Route::put('/mascotas/{pet}', [PetController::class, 'update'])->name('pets.upda
 
 // Eliminar una mascota
 Route::delete('/mascotas/{pet}', [PetController::class, 'destroy'])->name('pets.destroy');
+
+//veterinarias
+Route::get('veterinarians', [VeterinarianController::class, 'index'])->name('veterinarians.index');
+Route::get('veterinarians/create', [VeterinarianController::class, 'create'])->name('veterinarians.create');
+Route::post('veterinarians', [VeterinarianController::class, 'store'])->name('veterinarians.store');
+Route::get('veterinarians/{veterinarian}', [VeterinarianController::class, 'show'])->name('veterinarians.show');
+Route::get('veterinarians/{veterinarian}/edit', [VeterinarianController::class, 'edit'])->name('veterinarians.edit');
+Route::put('veterinarians/{veterinarian}', [VeterinarianController::class, 'update'])->name('veterinarians.update');
+Route::delete('veterinarians/{veterinarian}', [VeterinarianController::class, 'destroy'])->name('veterinarians.destroy');
+
+//usuarios
+Route::resource('users', UserController::class);
+//metodos pago
+Route::resource('paymentmethods', PaymentMethodController::class);
+//refugios
+Route::resource('shelters', ShelterController::class);
+//tipos
+Route::resource('types', TypeController::class);
+//adopciones
+Route::resource('adoptions', AdoptionController::class);
+//solicictudes
+Route::resource('requests', RequestController::class);
+
+
