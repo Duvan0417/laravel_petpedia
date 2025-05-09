@@ -11,16 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('schedules', function (Blueprint $table) {
-            $table->id();
-            $table->date('date');
-            $table->integer('hour');
-            $table->string('location');
-            $table->unsignedBigInteger('services_id');
+       Schema::create('schedules', function (Blueprint $table) {
+    $table->id();
+    $table->date('date');
+    $table->integer('hour');
+    $table->string('location');
+    $table->unsignedBigInteger('service_id')->nullable();
+    $table->timestamps();
 
-            $table->foreign('services_id')->references('id')->on('services')->onDelete('cascade');  
-            $table->timestamps();
-        });
+    $table->foreign('service_id')->references('id')->on('services')->onDelete('set null');
+});
+
     }
 
     /**
