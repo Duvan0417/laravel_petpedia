@@ -2,10 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 
-//answer
+// ruta de  answer
 use App\Http\Controllers\AnswerController;
-Route::resource('answers', AnswerController::class);
+Route::resource(' ', AnswerController::class);
 
-//socks
+//ruta de /socks
 use App\Http\Controllers\SockController;
 Route::resource('socks', SockController::class);
+
+// ruta de notifications
+use App\Http\Controllers\NotificationController;
+Route::resource('notifications', NotificationController::class);
+
+
