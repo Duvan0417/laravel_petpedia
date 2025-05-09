@@ -13,6 +13,6 @@ class Type extends Model
     ];
     public function request()
     {
-        return $this->hasMany(Request::class);
+        return $this->hasMany(RequestModel::class);
     }
 }

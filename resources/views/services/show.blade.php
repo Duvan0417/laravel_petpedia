@@ -10,9 +10,9 @@
             <p><strong>Price:</strong> ${{ number_format($service->price, 2) }}</p>
             <p><strong>Duration:</strong> {{ $service->duration }}</p>
             <p><strong>Description:</strong> {{ $service->description }}</p>
-            <p><strong>Trainer:</strong> {{ $service->trainer->specialty ?? 'N/A' }}</p>
+            <!-- <p><strong>Trainer:</strong> {{ $service->trainer->specialty ?? 'N/A' }}</p>
             <p><strong>Veterinary:</strong> {{ $service->veterinary->name ?? 'N/A' }}</p>
-            <p><strong>Request:</strong> {{ $service->request_id ?? 'N/A' }}</p>
+            <p><strong>Request:</strong> {{ $service->request_id ?? 'N/A' }}</p> -->
 
             <a href="{{ route('services.edit', $service->id) }}" class="btn btn-warning">Edit</a>
             <form action="{{ route('services.destroy', $service->id) }}" method="POST" class="d-inline">

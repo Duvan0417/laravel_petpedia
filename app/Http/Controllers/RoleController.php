@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\Trainer;
 use App\Models\Shelter;
-use App\Models\Veterinary;
 use App\Models\User;
+use App\Models\Veterinarian;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -22,7 +22,7 @@ class RoleController extends Controller
     {
         $trainers = Trainer::all();
         $shelters = Shelter::all();
-        $veterinaries = Veterinary::all();
+        $veterinaries = Veterinarian::all();
         $users = User::all();
 
         return view('roles.create', compact('trainers', 'shelters', 'veterinaries', 'users'));
@@ -53,7 +53,7 @@ class RoleController extends Controller
     {
         $trainers = Trainer::all();
         $shelters = Shelter::all();
-        $veterinaries = Veterinary::all();
+        $veterinaries = Veterinarian::all();
         $users = User::all();
 
         return view('roles.edit', compact('role', 'trainers', 'shelters', 'veterinaries', 'users'));

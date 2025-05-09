@@ -6,15 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class pet extends Model
 {
-
-    protected $table = 'pets';
+    public function request(){
+        return $this ->belongsTo(RequestModel::class);
+    }
+    public function user(){
+        return $this ->belongsTo(user::class);
+    }
+    public function appointment(){
+        return $this ->belongsTo(appointment::class);
+    }
+    public function trainer(){
+        return $this ->belongsTo(trainer::class);
+    }
     protected $fillable = [
-        'name',
-        'age',
-        'species',
-        'breed',
-        'size',
-        'sex',
-        'description',
+        'specialty',
+        'experience',
+        'qualifications',
+        'phone',
+        'email',
+        'biography',
     ];
+
 }

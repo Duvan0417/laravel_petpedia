@@ -31,7 +31,7 @@ class Adoption extends Model
 
     public function request()
     {
-        return $this->belongsTo(Request::class);
+        return $this->belongsTo(RequestModel::class);
     }
 
     public function shelter()

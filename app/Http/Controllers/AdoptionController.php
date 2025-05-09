@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Adoption;
 use App\Models\User;
 use App\Models\Pet;
-use App\Models\Request as AdoptionRequest; // Cambiar nombre para evitar conflictos
+use App\Models\RequestModel as AdoptionRequest; // Cambiar nombre para evitar conflictos
 use App\Models\Shelter;
 use Illuminate\Http\Request;
 

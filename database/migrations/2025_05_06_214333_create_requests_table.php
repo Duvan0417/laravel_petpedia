@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('shelter_id')->constrained('shelters')->onDelete('cascade');
-            $table->foreignId('services_id')->constrained('services')->onDelete('cascade');
+            $table->foreignId('service_id')->constrained('services')->onDelete('cascade');
             $table->timestamp('date');
             $table->integer('priority');
             $table->string('solicitation_status');

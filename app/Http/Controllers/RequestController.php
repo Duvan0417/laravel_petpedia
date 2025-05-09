@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Request;
+use App\Models\RequestModel;
 use App\Models\User;
 use App\Models\Shelter;
 use App\Models\Appointment;
@@ -12,7 +12,7 @@ class RequestController extends Controller
 {
     public function index()
     {
-        $requests = Request::with(['user', 'appointment', 'shelter'])->get();
+        $requests = RequestModel::with(['user', 'appointment', 'shelter'])->get();
         return view('requests.index', compact('requests'));
     }
 
@@ -26,11 +26,11 @@ class RequestController extends Controller
 
     public function store(HttpRequest $request)
     {
-        Request::create($request->all());
+        RequestModel::create($request->all());
         return redirect()->route('requests.index');
     }
 
-    public function edit(Request $requestModel)
+    public function edit(RequestModel $requestModel)
     {
         $users = User::all();
         $shelters = Shelter::all();
@@ -38,13 +38,13 @@ class RequestController extends Controller
         return view('requests.edit', compact('requestModel', 'users', 'shelters', 'appointments'));
     }
 
-    public function update(HttpRequest $request, Request $requestModel)
+    public function update(HttpRequest $request, RequestModel $requestModel)
     {
         $requestModel->update($request->all());
         return redirect()->route('requests.index');
     }
 
-    public function destroy(Request $requestModel)
+    public function destroy(RequestModel $requestModel)
     {
         $requestModel->delete();
         return redirect()->route('requests.index');

@@ -12,8 +12,8 @@
                 <th>Name</th>
                 <th>Price</th>
                 <th>Duration</th>
-                <th>Trainer</th>
-                <th>Veterinary</th>
+                <!-- <th>Trainer</th>
+                <th>Veterinary</th> -->
                 <th>Actions</th>
             </tr>
         </thead>
@@ -23,8 +23,8 @@
                 <td>{{ $service->name }}</td>
                 <td>${{ number_format($service->price, 2) }}</td>
                 <td>{{ $service->duration }}</td>
-                <td>{{ $service->trainer->specialty ?? 'N/A' }}</td>
-                <td>{{ $service->veterinary->name ?? 'N/A' }}</td>
+                <!-- <td>{{ $service->trainer->specialty ?? 'N/A' }}</td>
+                <td>{{ $service->veterinary->name ?? 'N/A' }}</td> -->
                 <td>
                     <a href="{{ route('services.show', $service->id) }}" class="btn btn-success btn-sm">Show</a>
                     <a href="{{ route('services.edit', $service->id) }}" class="btn btn-warning btn-sm">Edit</a>

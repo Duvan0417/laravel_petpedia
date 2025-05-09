@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
 {
-    public function schedule(){
-        return $this ->hasone(schedule::class);
-    }
+    // public function schedule(){
+    //     return $this ->hasone(schedule::class);
+    // }
     public function request(){
-        return $this ->belongs(request::class);
+        return $this ->belongs(RequestModel::class);
     }
     public function veterinary(){
-        return $this ->belongsTo(veterinary::class);
+        return $this ->belongsTo(Veterinarian::class);
     }
     public function trainer(){
         return $this ->belongsTo(trainer::class);

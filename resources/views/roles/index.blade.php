@@ -11,11 +11,7 @@
             <tr>
                 <th>Name</th>
                 <th>Description</th>
-                <th>Trainer</th>
-                <th>Shelter</th>
-                <th>Veterinary</th>
-                <th>User</th>
-                <th>Actions</th>
+               <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -23,10 +19,7 @@
                 <tr>
                     <td>{{ $role->name }}</td>
                     <td>{{ $role->description }}</td>
-                    <td>{{ $role->trainer->specialty ?? 'N/A' }}</td>
-                    <td>{{ $role->shelter->name ?? 'N/A' }}</td>
-                    <td>{{ $role->veterinary->name ?? 'N/A' }}</td>
-                    <td>{{ $role->user->name ?? 'N/A' }}</td>
+                     <td>{{ $role->user->name ?? 'N/A' }}</td>
                     <td>
                         <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-warning">Edit</a>
                         <form action="{{ route('roles.destroy', $role->id) }}" method="POST" style="display:inline;">

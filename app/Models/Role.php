@@ -18,7 +18,7 @@ class Role extends Model
         return $this ->hasOne(shelter::class);
     }
     public function veterinary(){
-        return $this ->hasOne(veterinary::class);
+        return $this ->hasOne(veterinarian::class);
     }
     protected $fillable = [
         'name',

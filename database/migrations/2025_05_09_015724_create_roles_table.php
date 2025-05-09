@@ -15,10 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->longText('description');
-            $table->foreignId('trainer_id')->constrained()->onDelete('cascade');
-            $table->foreignId('shelter_id')->constrained()->onDelete('cascade');
-            $table->foreignId('veterinary_id')->constrained('veterinarians')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('set null');
+            $table->foreignId('trainer_id')->constrained('trainers')->onDelete('cascade');
+            $table->foreignId('shelter_id')->constrained('shelters')->onDelete('cascade');
+            $table->foreignId('veterinarian_id')->unique()->constrained('veterinarians')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
+           
+
+
             $table->timestamps();
         });
     }

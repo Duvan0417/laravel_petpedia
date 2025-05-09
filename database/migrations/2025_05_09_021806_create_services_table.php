@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->decimal('price');
-            $table->date('duration');
-            $table->string('description');
-            $table->foreignId('trainer_id')->constrained()->onDelete('set null');
-            $table->foreignId('veterinary_id')->constrained('veterinarians')->onDelete('set null');
-            $table->foreignId('request_id')->constrained()->onDelete('set null');
+            
+  $table->string('name');
+  $table->decimal('price');
+  $table->date('duration');
+  $table->string('description');
+  $table->foreignId('trainer_id')->nullable()->constrained('trainers')->onDelete('set null');
+  $table->foreignId('veterinarian_id')->nullable()->constrained('veterinarians')->onDelete('set null');
+  $table->foreignId('request_id')->nullable()->constrained('requests')->onDelete('set null');
+
+
             $table->timestamps();
         });
     }
