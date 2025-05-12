@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->date('creation_date');
-            $table->unsignedBigInteger('forum_id'); 
-            $table->foreign('forum_id')->nullable()->references('id')->on('forums')->onDelete('set null');       
+    $table->unsignedBigInteger('forum_id')->nullable()->constrained('forums')->ondelete('set null');   
             $table->timestamps();
         });
     }

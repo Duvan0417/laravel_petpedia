@@ -1,28 +1,52 @@
-
-
-
-
 @extends('layouts.app')
 
-@section('title', 'Create Forum')
-
 @section('content')
-    <h1>Create Forum</h1>
+<div class="container">
+    <h2 class="mb-4">Crear Nuevo Foro</h2>
+    
     <form action="{{ route('forums.store') }}" method="POST">
         @csrf
-        <div class="mb-3">
-    <label for="forum_name" class="form-label">Forum Name:</label>
-    <input type="text" class="form-control" id="forum_name" name="forum_name" required>
-</div>
 
         <div class="mb-3">
-            <label for="description" class="form-label">Description:</label>
-            <textarea class="form-control" id="description" name="description" required></textarea>
+            <label for="name" class="form-label">Nombre del Foro</label>
+            <input type="text" id="name" name="name" class="form-control" required>
         </div>
+
         <div class="mb-3">
-            <label for="creation_date" class="form-label">Creation Date:</label>
-            <input type="date" class="form-control" id="creation_date" name="creation_date" required>
+            <label for="description" class="form-label">Descripción</label>
+            <textarea id="description" name="description" class="form-control" rows="3" required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Create</button>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="date" class="form-label">Fecha</label>
+                <input type="date" id="date" name="date" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+                <label for="user_id" class="form-label">Creador</label>
+                <select id="user_id" name="user_id" class="form-select">
+                    <option value="" selected>Seleccione un usuario</option>
+                    @foreach($users as $user)
+                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="{{ route('forums.index') }}" class="btn btn-outline-secondary me-md-2">Cancelar</a>
+            <button type="submit" class="btn btn-success">Guardar Foro</button>
+        </div>
     </form>
+</div>
+
+<style>
+    .form-label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+    .form-control, .form-select {
+        border-radius: 0.375rem;
+    }
+</style>
 @endsection

@@ -13,13 +13,11 @@ return new class extends Migration
     {
       Schema::create('forums', function (Blueprint $table) {
     $table->id();
-    $table->string('forum_name')->default('Default Forum Name'); // Add a default value
+    $table->string('name'); // Add a default value
     $table->string('description');
-    $table->date('creation_date');
-    $table->unsignedBigInteger('user_id');
-    $table->timestamps(); // This will automatically handle created_at and updated_at
-
-    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+    $table->date('date');
+    $table->unsignedBigInteger('user_id')->nullable()->constrained('users')->ondelete('set null');
+    $table->timestamps(); // This will automatically handle created_at and 
 });
 
         

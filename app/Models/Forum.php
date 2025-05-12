@@ -2,21 +2,30 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Forum extends Model
 {
-    public function user(){
-        return $this ->belongsTo(user::class);
-    }
-    public function topic(){
-        return $this ->hasMany(topic::class);
-    }
-   protected $fillable = [
-    'forum_name',
-    'description',
-    'creation_date',
-    'user_id',
-];
+    use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'description',
+        'date',
+        'user_id'
+    ];
+    
+
+    protected $dates = ['date'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function topics()
+    {
+        return $this->hasMany(Topic::class);
+    }
 }

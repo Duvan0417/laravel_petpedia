@@ -2,108 +2,70 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Schedule;
 use Illuminate\Http\Request;
+use App\Models\Schedule;
+use App\Models\Service;
 
 class ScheduleController extends Controller
 {
-    /**
-     * Display a listing of the schedules.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $schedules = Schedule::all();
+        $schedules = Schedule::with('service')->paginate(10);
         return view('schedules.index', compact('schedules'));
     }
 
-    /**
-     * Show the form for creating a new schedule.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        return view('schedules.create');
+        $services = Service::all();
+        return view('schedules.create', compact('services'));
     }
 
-    /**
-     * Store a newly created schedule in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
             'date' => 'required|date',
-            'hour' => 'required|integer',
+            'hour' => 'required|integer|between:0,23',
             'location' => 'required|string|max:255',
-            'service_id' => 'nullable|exists:services,id',
+            'service_id' => 'nullable|exists:services,id'
         ]);
 
         Schedule::create($request->all());
 
         return redirect()->route('schedules.index')
-                         ->with('success', 'Schedule created successfully.');
+            ->with('success', 'Horario creado correctamente');
     }
 
-    /**
-     * Display the specified schedule.
-     *
-     * @param  \App\Models\Schedule  $schedule
-     * @return \Illuminate\Http\Response
-     */
     public function show(Schedule $schedule)
     {
+        $schedule->load('service');
         return view('schedules.show', compact('schedule'));
     }
 
-    /**
-     * Show the form for editing the specified schedule.
-     *
-     * @param  \App\Models\Schedule  $schedule
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Schedule $schedule)
     {
-        return view('schedules.edit', compact('schedule'));
+        $services = Service::all();
+        return view('schedules.edit', compact('schedule', 'services'));
     }
 
-    /**
-     * Update the specified schedule in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Schedule  $schedule
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Schedule $schedule)
     {
         $request->validate([
             'date' => 'required|date',
-            'hour' => 'required|integer',
+            'hour' => 'required|integer|between:0,23',
             'location' => 'required|string|max:255',
-            'service_id' => 'nullable|exists:services,id',
+            'service_id' => 'nullable|exists:services,id'
         ]);
 
         $schedule->update($request->all());
 
         return redirect()->route('schedules.index')
-                         ->with('success', 'Schedule updated successfully');
+            ->with('success', 'Horario actualizado correctamente');
     }
 
-    /**
-     * Remove the specified schedule from storage.
-     *
-     * @param  \App\Models\Schedule  $schedule
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Schedule $schedule)
     {
         $schedule->delete();
-
         return redirect()->route('schedules.index')
-                         ->with('success', 'Schedule deleted successfully');
+            ->with('success', 'Horario eliminado correctamente');
     }
 }

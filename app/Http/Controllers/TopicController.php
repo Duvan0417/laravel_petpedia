@@ -2,104 +2,74 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Topic;
 use Illuminate\Http\Request;
+use App\Models\Topic;
+use App\Models\Forum;
 
 class TopicController extends Controller
 {
-    /**
-     * Display a listing of the topics.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $topics = Topic::all();
+        $topics = Topic::with('forum')->paginate(10);
         return view('topics.index', compact('topics'));
     }
 
-    /**
-     * Show the form for creating a new topic.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        return view('topics.create');
+        $forums = Forum::all();
+        return view('topics.create', compact('forums'));
     }
 
-    /**
-     * Store a newly created topic in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'content' => 'required|string',
+            'description' => 'nullable|string',
+            'forum_id' => 'required|exists:forums,id',
+            'creation_date' => 'required|date'
         ]);
 
-        Topic::create($request->all());
+        Topic::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'forum_id' => $request->forum_id,
+            'creation_date' => $request->creation_date
+        ]);
 
         return redirect()->route('topics.index')
-                         ->with('success', 'Topic created successfully.');
+            ->with('success', 'Tópico creado correctamente');
     }
+public function show($id)
+{
+    $forum = Forum::with(['user', 'topics.comments'])->findOrFail($id);
+    return view('forums.show', compact('forum'));
+}
 
-    /**
-     * Display the specified topic.
-     *
-     * @param  \App\Models\Topic  $topic
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Topic $topic)
-    {
-        return view('topics.show', compact('topic'));
-    }
-
-    /**
-     * Show the form for editing the specified topic.
-     *
-     * @param  \App\Models\Topic  $topic
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Topic $topic)
     {
-        return view('topics.edit', compact('topic'));
+        $forums = Forum::all();
+        return view('topics.edit', compact('topic', 'forums'));
     }
 
-    /**
-     * Update the specified topic in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Topic  $topic
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Topic $topic)
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'content' => 'required|string',
+            'description' => 'nullable|string',
+            'forum_id' => 'required|exists:forums,id',
+            'creation_date' => 'required|date'
         ]);
 
         $topic->update($request->all());
 
         return redirect()->route('topics.index')
-                         ->with('success', 'Topic updated successfully');
+            ->with('success', 'Tópico actualizado correctamente');
     }
 
-    /**
-     * Remove the specified topic from storage.
-     *
-     * @param  \App\Models\Topic  $topic
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Topic $topic)
     {
         $topic->delete();
-
         return redirect()->route('topics.index')
-                         ->with('success', 'Topic deleted successfully');
+            ->with('success', 'Tópico eliminado correctamente');
     }
 }

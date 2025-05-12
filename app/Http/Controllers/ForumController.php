@@ -2,104 +2,75 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Forum;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Forum;
+use App\Models\User;
 
 class ForumController extends Controller
 {
-    /**
-     * Display a listing of the forums.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
-    {
-        $forums = Forum::all();
-        return view('forums.index', compact('forums'));
-    }
+{$forums = Forum::paginate(10); // O el número de ítems por página que quieras
 
-    /**
-     * Show the form for creating a new forum.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('forums.create');
-    }
-
-   public function store(Request $request)
-{
-    $request->validate([
-        'forum_name' => 'required|string|max:255',
-        'description' => 'required|string',
-        'creation_date' => 'required|date',
-    ]);
-
-    $forumData = $request->all();
-    $forumData['user_id'] = Auth::id();
-
-    Forum::create($forumData);
-
-    return redirect()->route('forums.index')
-                     ->with('success', 'Forum created successfully.');
+    return view('forums.index', compact('forums'));
 }
 
+    public function create()
+    {
+        $users = User::all();
+        return view('forums.create', compact('users'));
+    }
 
-    /**
-     * Display the specified forum.
-     *
-     * @param  \App\Models\Forum  $forum
-     * @return \Illuminate\Http\Response
-     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'date' => 'required|date',
+            'user_id' => 'nullable|exists:users,id'
+        ]);
+
+        Forum::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'date' => $request->date,
+            'user_id' => $request->user_id
+        ]);
+
+        return redirect()->route('forums.index')
+            ->with('success', 'Foro creado correctamente');
+    }
+
     public function show(Forum $forum)
     {
+        $forum->load(['user', 'topics']);
         return view('forums.show', compact('forum'));
     }
 
-    /**
-     * Show the form for editing the specified forum.
-     *
-     * @param  \App\Models\Forum  $forum
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Forum $forum)
     {
-        return view('forums.edit', compact('forum'));
+        $users = User::all();
+        return view('forums.edit', compact('forum', 'users'));
     }
 
-    /**
-     * Update the specified forum in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Forum  $forum
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Forum $forum)
     {
         $request->validate([
+            'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'creation_date' => 'required|date',
+            'date' => 'required|date',
+            'user_id' => 'nullable|exists:users,id'
         ]);
 
         $forum->update($request->all());
 
         return redirect()->route('forums.index')
-                         ->with('success', 'Forum updated successfully');
+            ->with('success', 'Foro actualizado correctamente');
     }
 
-    /**
-     * Remove the specified forum from storage.
-     *
-     * @param  \App\Models\Forum  $forum
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Forum $forum)
     {
         $forum->delete();
-
         return redirect()->route('forums.index')
-                         ->with('success', 'Forum deleted successfully');
+            ->with('success', 'Foro eliminado correctamente');
     }
 }

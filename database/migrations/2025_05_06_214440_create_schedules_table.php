@@ -16,11 +16,9 @@ return new class extends Migration
     $table->date('date');
     $table->integer('hour');
     $table->string('location');
-    $table->unsignedBigInteger('service_id')->nullable();
+    $table->unsignedBigInteger('service_id')->nullable()->constrained('services')->ondelete('set null');
     $table->timestamps();
-
-    $table->foreign('service_id')->references('id')->on('services')->onDelete('set null');
-});
+       });
 
     }
 
