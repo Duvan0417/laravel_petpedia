@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('email')->unique(); // Agregando restricción única para evitar duplicados de correos electrónicos
             $table->string('password');
+            $table->string('phone', 20)->nullable();
+
+            $table->date('registration_date')->nullable(); // Permitirá valores nulos en caso de que no siempre se tenga esta información
             $table->rememberToken();
             $table->timestamps();
         });
@@ -42,8 +44,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('sessions');
+    Schema::table('users', function (Blueprint $table) {
+        $table->dropColumn('phone');
+        $table->dropColumn('registration_date');
+    });
     }
 };

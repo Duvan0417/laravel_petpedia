@@ -2,45 +2,49 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Service extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
-        'trainer_id',
         'name',
         'price',
         'duration',
         'description',
-        'veterinary_id',
+        'veterinarian_id',
+        'trainer_id',
         'request_id'
     ];
 
-    protected $casts = [
-        'price' => 'decimal:2',
-        'duration' => 'datetime'
-    ];
+    protected $dates = ['duration'];
 
-    public function trainer()
-    {
-        return $this->belongsTo(Trainer::class);
-    }
-
-    public function veterinary()
+    /**
+     * Relación con el veterinario
+     */
+    public function veterinarian(): BelongsTo
     {
         return $this->belongsTo(Veterinarian::class);
     }
 
-    public function request()
+    /**
+     * Relación con el entrenador
+     */
+    public function trainer(): BelongsTo
+    {
+        return $this->belongsTo(Trainer::class);
+    }
+
+    /**
+     * Relación con la solicitud
+     */
+    public function request(): BelongsTo
     {
         return $this->belongsTo(Request::class);
     }
-
-    public function schedules()
-    {
-        return $this->hasMany(Schedule::class);
-    }
+    
+    // public function schedules()
+    // {
+    //     return $this->hasMany(Schedule::class);
+    // }
 }

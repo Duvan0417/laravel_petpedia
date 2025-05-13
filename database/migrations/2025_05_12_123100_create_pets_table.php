@@ -12,26 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pets', function (Blueprint $table) {
-            $table->id();
-            
-  $table->string('specialty');
-            $table->integer('experience');
-            $table->decimal('qualifications');
-            $table->decimal('phone');
-            $table->string('gmail');
-            $table->longText('biography');
-            $table->timestamps();
- 
-    $table->unsignedBigInteger('trainer_id')->nullable()->constrained('trainers')->ondelete('set null');
-    
-    $table->unsignedBigInteger('appointment_id')->nullable()->constrained('appointments')->ondelete('set null');
-    
-    $table->unsignedBigInteger('shelter_id')->nullable()->constrained('shelters')->ondelete('set null');
-    
-    $table->unsignedBigInteger('user_id')->nullable()->constrained('users')->ondelete('set null');
-   
-            $table->timestamps();
-        });
+    $table->id();
+    $table->string('specialty');
+    $table->integer('experience');
+    $table->decimal('qualifications', 8, 2);
+    $table->string('phone', 20)->nullable();
+
+    $table->string('gmail');
+    $table->longText('biography')->nullable();
+    $table->foreignId('trainer_id')->nullable()->constrained('trainers')->nullOnDelete();
+    $table->foreignId('appointment_id')->nullable()->constrained('appointments')->nullOnDelete();
+    $table->foreignId('shelter_id')->nullable()->constrained('shelters')->nullOnDelete();
+    $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
+    $table->timestamps(); // Solo esto
+});
+
     }
 
     /**

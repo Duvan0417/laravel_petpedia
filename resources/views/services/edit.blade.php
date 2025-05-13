@@ -1,86 +1,41 @@
+<!-- resources/views/services/edit.blade.php -->
+
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h2 class="mb-4">Edit Service</h2>
-    
-    <form action="{{ route('services.update', $service->id) }}" method="POST">
-        @csrf
-        @method('PUT')
+    <div class="container">
+        <h1>Edit Service</h1>
 
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <label for="name" class="form-label">Service Name</label>
-                <input type="text" id="name" name="name" class="form-control" 
-                       value="{{ old('name', $service->name) }}" required>
-            </div>
-            <div class="col-md-6">
-                <label for="price" class="form-label">Price</label>
-                <div class="input-group">
-                    <span class="input-group-text">$</span>
-                    <input type="number" id="price" name="price" class="form-control" 
-                           value="{{ old('price', $service->price) }}" step="0.01" min="0" required>
-                </div>
-            </div>
-        </div>
+        <form action="{{ route('services.update', $service->id) }}" method="POST">
+            @csrf
+            @method('PUT')
 
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <label for="duration" class="form-label">Duration</label>
-                <input type="date" id="duration" name="duration" class="form-control" 
-                       value="{{ old('duration', $service->duration->format('Y-m-d')) }}" required>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ $service->name }}" required>
             </div>
-            <div class="col-md-6">
-                <label for="description" class="form-label">Description</label>
-                <textarea id="description" name="description" class="form-control" rows="1">
-                    {{ old('description', $service->description) }}
-                </textarea>
-            </div>
-        </div>
 
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <label for="trainer_id" class="form-label">Trainer</label>
-                <select id="trainer_id" name="trainer_id" class="form-select">
-                    <option value="">Select Trainer</option>
-                    @foreach($trainers as $trainer)
-                        <option value="{{ $trainer->id }}" 
-                            {{ $service->trainer_id == $trainer->id ? 'selected' : '' }}>
-                            {{ $trainer->name }}
-                        </option>
-                    @endforeach
-                </select>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="number" class="form-control" id="price" name="price" value="{{ $service->price }}" required>
             </div>
-            <div class="col-md-4">
-                <label for="veterinary_id" class="form-label">Veterinary</label>
-                <select id="veterinary_id" name="veterinary_id" class="form-select">
-                    <option value="">Select Veterinary</option>
-                    @foreach($veterinaries as $veterinary)
-                        <option value="{{ $veterinary->id }}" 
-                            {{ $service->veterinary_id == $veterinary->id ? 'selected' : '' }}>
-                            {{ $veterinary->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="col-md-4">
-                <label for="request_id" class="form-label">Request</label>
-                <select id="request_id" name="request_id" class="form-select">
-                    <option value="">Select Request</option>
-                    @foreach($requests as $request)
-                        <option value="{{ $request->id }}" 
-                            {{ $service->request_id == $request->id ? 'selected' : '' }}>
-                            {{ $request->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
 
-        <div class="d-flex justify-content-end">
-            <a href="{{ route('services.index') }}" class="btn btn-outline-secondary me-2">Cancel</a>
-            <button type="submit" class="btn btn-primary">Update Service</button>
-        </div>
-    </form>
-</div>
+            <div class="form-group">
+                <label for="duration">Duration</label>
+                <input type="text" class="form-control" id="duration" name="duration" value="{{ $service->duration }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="veterinarian_name">Veterinarian Name</label>
+                <input type="text" class="form-control" id="veterinarian_name" name="veterinarian_name" value="{{ $service->veterinarian_name }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="trainer_name">Trainer Name</label>
+                <input type="text" class="form-control" id="trainer_name" name="trainer_name" value="{{ $service->trainer_name }}" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
 @endsection
