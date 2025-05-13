@@ -25,7 +25,7 @@
     .content-wrapper {
       flex: 1;
       padding: 20px;
-      background-color: rgba(232, 244, 255, 0.85);
+      background-color: rgba(214, 233, 250, 0.85);
       border-radius: 8px;
       margin: 20px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);

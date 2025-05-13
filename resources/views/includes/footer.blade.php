@@ -1,15 +1,16 @@
-<!-- Contenido de la página de inicio, como el carrusel y otras secciones -->
 
-<!-- Footer -->
-<footer class="bg-dark text-white py-4">
-    <div class="container">
-        <div class="row">
+<footer>
+  <div class="container">
+
+      
+     <div class="row">
             <div class="col-md-6">
-                <h5>Contacto</h5>
-                <p>Academia de Taekwondo<br>
-                Dirección: [Tu dirección]<br>
-                Teléfono: [Tu teléfono]<br>
-                Correo electrónico: [Tu correo electrónico]</p>
+            <i class="fas fa-paw"></i> PetPedia - Cuidamos lo que más amas 🐾
+                </p>
+                <small>
+                      Tu guía confiable para adopciones, cuidado veterinario y mucho amor animal.
+                  </small>
+
             </div>
             <div class="col-md-6">
                 <h5>Síguenos</h5>
@@ -20,7 +21,5 @@
                 </ul>
             </div>
         </div>
-        <hr>
-        <p class="text-center">&copy; {{ date('Y') }} Academia de Taekwondo. Todos los derechos reservados.</p>
-    </div>
+  </div>
 </footer>
