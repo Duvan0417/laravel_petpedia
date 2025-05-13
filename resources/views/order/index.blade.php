@@ -33,7 +33,7 @@
                         <tr>
                             <td>{{ $order->id }}</td>
                             {{-- esto toca cambiarlo despues por ($order->user->name) --}}
-                            <td>{{ $order->user?->name ?? 'Usuario no asignado' }}</td>
+                            <td>{{ $order->user->name }}</td>
                             <td class="text-end">${{ number_format($order->total, 2) }}</td>
                             <td>
                                 <span @class([

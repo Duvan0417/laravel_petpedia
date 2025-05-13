@@ -23,6 +23,6 @@ class Order extends Model
 
     // Relación Uno a Uno con Shipment
     public function shipment(){
-        return $this->hasOne('App\Models\Shipment');
+        return $this->hasMany('App\Models\Shipment');
     }
 }

@@ -11,7 +11,7 @@
                     @method('PUT')
 
 
-                    {{--
+                    
                     <div class="mb-3">
                         <label for="user_id" class="form-label">Cliente</label>
                         <select class="form-select" id="user_id" name="user_id" required>
@@ -22,7 +22,7 @@
                                 </option>
                             @endforeach
                         </select>
-                    </div>--}}
+                    </div>
 
                     <div class="mb-3">
                         <label for="total" class="form-label">Total</label>

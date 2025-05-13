@@ -26,7 +26,6 @@
                 </div>
             </div>
 
-            <!-- Sección ELIMINADA: Campo stock -->
         </div>
 
         <div class="mb-3">

@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::create('shopping_carts', function (Blueprint $table) {
             $table->id();
-            $table->date('creation_date');
             $table->integer('quantity');
 
             
@@ -25,14 +24,7 @@ return new class extends Migration
                   ->references('id')
                   ->on('products')
                   ->onDelete('cascade');
-
-                  $table->unsignedBigInteger('order_id')->nullable();
-            $table->foreign('order_id')
-                  ->references('id')
-                  ->on('orders')
-                  ->onDelete('cascade');
-
-            $table->timestamps();
+                  $table->timestamps();   
         });
     }
 

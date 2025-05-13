@@ -5,70 +5,84 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ShoppingCart;
 use App\Models\Product;
-use App\Models\Order;
 use App\Models\User;
 
 class ShoppingCartController extends Controller
 {
     public function index()
     {
-        $shoppingCarts = ShoppingCart::with(['product', 'order', 'user'])->get();
+        $shoppingCarts = ShoppingCart::with(['product', 'user'])->get();
         return view('shoppingcart.index', compact('shoppingCarts'));
     }
 
     public function create()
     {
         $products = Product::all();
-        $orders = Order::all();
         $users = User::all();
-        return view('shoppingcart.create', compact('products', 'orders', 'users'));
+        return view('shoppingcart.create', compact('products', 'users'));
     }
 
     public function store(Request $request)
     {
-        $shoppingCart = new ShoppingCart();
-        $shoppingCart->creation_date = $request->creation_date ?? now();
-        $shoppingCart->quantity = $request->quantity;
-        $shoppingCart->user_id = $request->user_id;
-        $shoppingCart->product_id = $request->product_id;
-        $shoppingCart->order_id = $request->order_id;
-        $shoppingCart->save();
+        $validated = $request->validate([
+            'quantity' => 'required|integer|min:1',
+            'user_id' => 'required|exists:users,id',
+            'product_id' => 'required|exists:products,id',
+        ]);
 
-        return redirect()->route('shoppingcart.index');
+        $existingCartItem = ShoppingCart::where('user_id', $validated['user_id'])
+                                      ->where('product_id', $validated['product_id'])
+                                      ->first();
+
+        if ($existingCartItem) {
+            $existingCartItem->increment('quantity', $validated['quantity']);
+            return redirect()->route('shoppingcart.index')->with('success', 'Cantidad actualizada');
+        }
+
+        ShoppingCart::create($validated);
+        return redirect()->route('shoppingcart.index')->with('success', 'Producto añadido');
     }
 
-    public function show($id)
+    public function show(ShoppingCart $shoppingcart)
     {
-        $shoppingCart = ShoppingCart::with(['product', 'order', 'user'])->findOrFail($id);
-        return view('shoppingcart.show', compact('shoppingCart'));
+        $shoppingcart->load(['product', 'user']);
+        return view('shoppingcart.show', compact('shoppingcart'));
+    }
+
+    public function edit(ShoppingCart $shoppingcart)
+    {
+        $products = Product::all();
+        $users = User::all();
+        return view('shoppingcart.edit', compact('shoppingcart', 'products', 'users'));
+    }
+
+    public function update(Request $request, ShoppingCart $shoppingcart)
+    {
+        $validated = $request->validate([
+            'quantity' => 'required|integer|min:1',
+            'user_id' => 'required|exists:users,id',
+            'product_id' => 'required|exists:products,id',
+        ]);
+
+        $shoppingcart->update($validated);
+        return redirect()->route('shoppingcart.index')->with('success', 'Item actualizado');
     }
 
     public function destroy(ShoppingCart $shoppingcart)
     {
         $shoppingcart->delete();
-        return redirect()->route('shoppingcart.index');
+        return redirect()->route('shoppingcart.index')->with('success', 'Item eliminado');
     }
 
-    public function edit($id)
-{
-    // Asegúrate de obtener el carrito y pasarlo a la vista
-    $shoppingCart = ShoppingCart::with(['product', 'user', 'order'])->findOrFail($id);
-    $products = Product::all();
-    $orders = Order::all();
-    $users = User::all();
-    
-    return view('shoppingcart.edit', compact('shoppingCart', 'products', 'orders', 'users'));
-}
-
-    public function update(Request $request, ShoppingCart $shoppingcart)
+    public function getUserCart($userId)
     {
-        $shoppingcart->creation_date = $request->creation_date;
-        $shoppingcart->quantity = $request->quantity;
-        $shoppingcart->user_id = $request->user_id;
-        $shoppingcart->product_id = $request->product_id;
-        $shoppingcart->order_id = $request->order_id;
-        $shoppingcart->save();
+        $userCart = ShoppingCart::with('product')->where('user_id', $userId)->get();
+        return view('shoppingcart.user_cart', compact('userCart'));
+    }
 
-        return redirect()->route('shoppingcart.index');
+    public function clearUserCart($userId)
+    {
+        ShoppingCart::where('user_id', $userId)->delete();
+        return back()->with('success', 'Carrito vaciado');
     }
 }

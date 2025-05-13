@@ -50,14 +50,14 @@
     </div>
 
     <!-- Aquí podrías agregar una sección para los items de la orden si los tuvieras -->
-    <!-- <div class="card mb-4">
+     <div class="card mb-4">
         <div class="card-header bg-light">
             <h4 class="mb-0">Productos en esta orden</h4>
         </div>
         <div class="card-body">
             [Listado de productos...]
         </div>
-    </div> -->
+    </div> 
 
     <div class="d-flex justify-content-between">
         <a href="{{ route('order.index') }}" class="btn btn-outline-primary">

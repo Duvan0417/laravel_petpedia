@@ -7,6 +7,7 @@ use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\UserController;
 
 Route::get('categories', [CategoryController::class, 'index'])->name('category.index');
 Route::get('category/create', [CategoryController::class, 'create'])->name('category.create');
@@ -66,3 +67,24 @@ Route::get('/order/{order}', [OrderController::class, 'show'])->name('order.show
 Route::get('/order/{order}/edit', [OrderController::class, 'edit'])->name('order.edit');
 Route::put('/order/{order}', [OrderController::class, 'update'])->name('order.update');
 Route::delete('/order/{order}', [OrderController::class, 'destroy'])->name('order.destroy');
+
+
+
+Route::get('/user', [UserController::class, 'index'])->name('user.index');
+Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
+Route::post('/user', [UserController::class, 'store'])->name('user.store');
+Route::get('/user/{user}', [UserController::class, 'show'])->name('user.show');
+Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
+Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
+Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+
+
+use App\Http\Controllers\ShipmentController;
+
+Route::get('/shipments', [ShipmentController::class, 'index'])->name('shipments.index');
+Route::get('/shipments/create', [ShipmentController::class, 'create'])->name('shipments.create');
+Route::post('/shipments', [ShipmentController::class, 'store'])->name('shipments.store');
+Route::get('/shipments/{shipment}', [ShipmentController::class, 'show'])->name('shipments.show');
+Route::get('/shipments/{shipment}/edit', [ShipmentController::class, 'edit'])->name('shipments.edit');
+Route::put('/shipments/{shipment}', [ShipmentController::class, 'update'])->name('shipments.update');
+Route::delete('/shipments/{shipment}', [ShipmentController::class, 'destroy'])->name('shipments.destroy');

@@ -6,28 +6,28 @@ use Illuminate\Database\Eloquent\Model;
 
 class ShoppingCart extends Model
 {
-
     protected $fillable = [
-        'creation_date',
         'quantity',
         'user_id',
-        'product_id',
-        'order_id'
+        'product_id'
     ];
 
-    // Relación Muchos a Uno con User
-    public function user(){
-        return $this->belongsTo('App\Models\User');
-    }
-
-    // Relación Muchos a Uno con Product
-    public function product(){
-        return $this->belongsTo('App\Models\Product');
-    }
-
-    // Relación con Order (agrega esto)
-    public function order()
+    // Relación con User con valor por defecto
+    public function user()
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo('App\Models\User')->withDefault([
+            'name' => 'Usuario no encontrado',
+            'email' => 'sin-email@ejemplo.com'
+        ]);
+    }
+
+    // Relación con Product con valor por defecto
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product')->withDefault([
+            'name' => 'Producto eliminado',
+            'price' => 0,
+            'description' => 'Este producto ya no está disponible'
+        ]);
     }
 }

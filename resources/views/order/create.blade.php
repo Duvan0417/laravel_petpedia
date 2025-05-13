@@ -7,7 +7,7 @@
     <form action="{{ route('order.store') }}" method="POST">
         @csrf
         
-        {{--
+        
         <div class="mb-3">
             <label for="user_id" class="form-label">Cliente</label>
             <select class="form-select" id="user_id" name="user_id" required>
@@ -16,7 +16,7 @@
                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                 @endforeach
             </select>
-        </div> --}}
+        </div> 
         
 
         <div class="mb-3">

@@ -4,27 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
-// use App\Models\User;  // Comentado temporalmente
+use App\Models\User;
 
 class OrderController extends Controller
 {
     public function index()
     {
         $orders = Order::latest()->paginate(10);
-        // $orders = Order::with('user')->latest()->paginate(10);  // Versión original comentada
+       $orders = Order::with('user')->latest()->paginate(10);  
         return view('order.index', compact('orders'));
     }
 
     public function create()
     {
-        // $users = User::all();  // Comentado temporalmente
-        return view('order.create'/*, compact('users')*/);  // Parámetro comentado
+        $users = User::all();
+        return view('order.create', compact('users'));  // Parámetro comentado
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            // 'user_id' => 'required|exists:users,id',  // Comentado temporalmente
+            'user_id' => 'required|exists:users,id',  // Comentado temporalmente
             'total' => 'required|numeric|min:0',
             'status' => 'nullable|in:pending,completed,cancelled',
         ]);
@@ -41,14 +41,14 @@ class OrderController extends Controller
 
     public function edit(Order $order)
     {
-        // $users = User::all();  // Comentado temporalmente
-        return view('order.edit', compact('order'/*, 'users'*/));  // Parámetro comentado
+        $users = User::all();  //Comentado temporalmente
+        return view('order.edit', compact('order', 'users'));  // Parámetro comentado
     }
 
     public function update(Request $request, Order $order)
     {
         $validated = $request->validate([
-            // 'user_id' => 'required|exists:users,id',  // Comentado temporalmente
+            'user_id' => 'required|exists:users,id',  // Comentado temporalmente
             'total' => 'required|numeric|min:0',
             'status' => 'required|in:pending,completed,cancelled',
         ]);
