@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
-
+Route::get('ormconsultas',[OrmController::class,'consultas']);
 
 
 //veterinarias

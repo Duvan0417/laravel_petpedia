@@ -28,7 +28,7 @@ class Appointment extends Model
     
     public function pet()
     {
-        return $this->hasMany(pet::class);
+        return $this->hasMany(Pet::class);
     }
     
     public function request()
