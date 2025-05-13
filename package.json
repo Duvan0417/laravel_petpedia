@@ -2,15 +2,41 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "build": "vite build"
     },
     "devDependencies": {
-        "@tailwindcss/vite": "^4.0.0",
-        "axios": "^1.8.2",
-        "concurrently": "^9.0.1",
+        "@tailwindcss/forms": "^0.5.10",
+        "autoprefixer": "^10.4.21",
+        "daisyui": "^5.0.28",
         "laravel-vite-plugin": "^1.2.0",
-        "tailwindcss": "^4.0.0",
-        "vite": "^6.2.4"
-    }
+        "postcss": "^8.4.21",
+        "tailwindcss": "^3.4.1",
+        "vite": "^6.3.3"
+    },
+    "dependencies": {
+        "@vitejs/plugin-vue": "^5.2.3",
+        "axios": "^1.9.0",
+        "flowbite": "^3.1.2",
+        "flowbite-typography": "^1.0.5",
+        "jiti": "^2.4.2"
+    },
+    "name": "laravel_petpedia",
+    "version": "1.0.0",
+    "description": "Proyecto Laravel Petpedia",
+    "main": "tailwind.config.js",
+    "directories": {
+        "test": "tests"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Duvan0417/laravel_petpedia.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Duvan0417/laravel_petpedia/issues"
+    },
+    "homepage": "https://github.com/Duvan0417/laravel_petpedia#readme"
 }

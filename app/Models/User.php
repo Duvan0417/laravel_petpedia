@@ -49,6 +49,7 @@ class User extends Authenticatable
     public function paymentmethods() {
         return $this->hasMany(PaymentMethod::class);
     }
+
     public function forums() {
         return $this->hasMany(Forum::class);
     }
@@ -64,4 +65,5 @@ class User extends Authenticatable
     public function request() {
         return $this->hasMany(Request::class);
     }
+
 };
