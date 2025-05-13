@@ -1,6 +1,4 @@
 <?php
-
-
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
@@ -39,4 +37,10 @@ Route::resource('requests', RequestController::class);
 
 //adopciones
 Route::resource('adoptions', AdoptionController::class);
+//foros
+Route::resource('/forums', ForumController::class);
+//notificaciones
+Route::resource('/schedules', ScheduleController::class);
 
+//usuarios
+Route::resource('/topics', TopicController::class);

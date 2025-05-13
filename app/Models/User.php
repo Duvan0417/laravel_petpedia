@@ -64,5 +64,4 @@ class User extends Authenticatable
     public function request() {
         return $this->hasMany(Request::class);
     }
-    
-}
+};
