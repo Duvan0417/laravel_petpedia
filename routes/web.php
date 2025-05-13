@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
 
+
 //veterinarias
 Route::get('veterinarians', [VeterinarianController::class, 'index'])->name('veterinarians.index');
 Route::get('veterinarians/create', [VeterinarianController::class, 'create'])->name('veterinarians.create');
@@ -44,3 +45,14 @@ Route::resource('/schedules', ScheduleController::class);
 
 //usuarios
 Route::resource('/topics', TopicController::class);
+
+// ruta de  answer
+Route::resource('answers', AnswerController::class);
+
+//ruta de /socks
+Route::resource('socks', SockController::class);
+
+// ruta de notifications
+Route::resource('notifications', NotificationController::class);
+
+
