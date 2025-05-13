@@ -54,16 +54,27 @@ class User extends Authenticatable
         return $this->hasMany(Forum::class);
     }
     public function shoppingcarts() {
-        //return $this->hasMany(shoppingcart::class);
+        return $this->hasMany(shoppingcart::class);
     }
     public function orders() {
-        //return $this->hasMany(orders::class);
+        return $this->hasMany(order::class);
     }
     public function pets() {
         return $this->hasMany(pet::class);
     }
+    public function paymentmethod() {
+        return $this->hasMany(paymentmethod::class);
+    }
+
     public function request() {
         return $this->hasMany(Request::class);
     }
-
+    
+    public function trainer() {
+        return $this->belongsTo(Trainer::class);
+    }
+    
+    public function veterinarian() {
+        return $this->belongsTo(veterinarian::class);
+    }
 };

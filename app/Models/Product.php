@@ -41,6 +41,10 @@ class Product extends Model
     {
         return $this->hasMany('App\Models\OrderItem');
     }
+ public function shoppingCart()
+    {
+        return $this->hasMany('App\Models\ShoppingCart');
+    }
 
     /**
      * Eventos del modelo para garantizar inventario

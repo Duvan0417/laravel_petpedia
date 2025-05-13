@@ -29,4 +29,8 @@
         </div>
 
         <div class="d-flex justify-content-between">
-            <a href="{{ route('users.index') }}" class="btn btn-secondary
+            <a href="{{ route('users.index') }}" class="btn btn-secondary">Volver</a>
+        </div>
+    </div>
+</div>
+@endsection

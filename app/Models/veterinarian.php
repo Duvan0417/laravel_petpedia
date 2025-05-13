@@ -22,9 +22,12 @@ class Veterinarian extends Model
         return $this->hasMany(service::class);
     }
 
-    public function appintment()
+    public function appointment()
     {
         return $this->hasMany(appointment::class);
     }
-    
+      public function user()
+    {
+        return $this->hasOne(user::class);
+    }
 }
