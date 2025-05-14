@@ -12,21 +12,24 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pets', function (Blueprint $table) {
-    $table->id();
-    $table->string('specialty');
-    $table->integer('experience');
-    $table->decimal('qualifications', 8, 2);
-    $table->string('phone', 20)->nullable();
+            $table->id();
+            $table->string('name'); // nombre
+            $table->integer('age'); // edad
+            $table->string('species'); // especie
+            $table->string('breed'); // raza
+            $table->decimal('size', 8, 2); // tamano
+            $table->string('sex'); // sexo
+            $table->longText('description')->nullable(); // descripcion
 
-    $table->string('gmail');
-    $table->longText('biography')->nullable();
-    $table->foreignId('trainer_id')->nullable()->constrained('trainers')->nullOnDelete();
-    $table->foreignId('appointment_id')->nullable()->constrained('appointments')->nullOnDelete();
-    $table->foreignId('shelter_id')->nullable()->constrained('shelters')->nullOnDelete();
-    $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
-    $table->timestamps(); // Solo esto
-});
+            $table->string('gmail');
+            $table->longText('biography')->nullable();
 
+            $table->foreignId('trainer_id')->constrained('trainers')->OnDelete('cascade');
+            $table->foreignId('appointment_id')->constrained('appointments')->OnDelete('cascade');
+            $table->foreignId('shelter_id')->constrained('shelters')->OnDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->OnDelete('cascadde');
+            $table->timestamps(); // Solo esto
+        });
     }
 
     /**

@@ -10,19 +10,23 @@ class Pet extends Model
 {
     use HasFactory;
 
+
     protected $fillable = [
-        'specialty',
-        'experience',
-        'qualifications',
-        'phone',
+        'name',
+        'age',
+        'species',
+        'breed',
+        'size',
+        'sex',
+        'description',
         'gmail',
         'biography',
         'trainer_id',
         'appointment_id',
         'shelter_id',
-        'user_id'
+        'user_id',
     ];
-
+    
     // Relaciones
     public function trainer() {
         return $this->belongsTo(Trainer::class);

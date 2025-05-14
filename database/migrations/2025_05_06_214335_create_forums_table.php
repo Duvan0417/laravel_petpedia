@@ -16,7 +16,7 @@ return new class extends Migration
     $table->string('name'); // Add a default value
     $table->string('description');
     $table->date('date');
-    $table->unsignedBigInteger('user_id')->nullable()->constrained('users')->ondelete('set null');
+    $table->foreignId('user_id')->constrained('users')->ondelete('cascade');
     $table->timestamps(); // This will automatically handle created_at and 
 });
 
