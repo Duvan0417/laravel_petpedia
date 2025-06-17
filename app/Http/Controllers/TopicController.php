@@ -10,8 +10,8 @@ class TopicController extends Controller
 {
     public function index()
     {
-        $topics = Topic::with('forum')->paginate(10);
-        return view('topics.index', compact('topics'));
+        $topics = Topic::included()->filter()->paginate(10);
+        return response()->json($topics);
     }
 
     public function create()
@@ -29,21 +29,16 @@ class TopicController extends Controller
             'creation_date' => 'required|date'
         ]);
 
-        Topic::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'forum_id' => $request->forum_id,
-            'creation_date' => $request->creation_date
-        ]);
+        $topic = Topic::create($request->all());
 
-        return redirect()->route('topics.index')
-            ->with('success', 'Tópico creado correctamente');
+        return response()->json($topic);
     }
-public function show($id)
-{
-    $forum = Forum::with(['user', 'topics.comments'])->findOrFail($id);
-    return view('forums.show', compact('forum'));
-}
+
+    public function show($id)
+    {
+        $topic = Topic::included()->findOrFail($id);
+        return response()->json($topic);
+    }
 
     public function edit(Topic $topic)
     {
@@ -62,14 +57,13 @@ public function show($id)
 
         $topic->update($request->all());
 
-        return redirect()->route('topics.index')
-            ->with('success', 'Tópico actualizado correctamente');
+        return response()->json($topic);
     }
 
     public function destroy(Topic $topic)
     {
         $topic->delete();
-        return redirect()->route('topics.index')
-            ->with('success', 'Tópico eliminado correctamente');
+        return response()->json(['message' => 'Tópico eliminado correctamente']);
     }
 }
+

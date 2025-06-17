@@ -4,20 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Schedule;
-use App\Models\Service;
 
 class ScheduleController extends Controller
 {
     public function index()
     {
-        $schedules = Schedule::with('service')->paginate(10);
-        return view('schedules.index', compact('schedules'));
-    }
-
-    public function create()
-    {
-        $services = Service::all();
-        return view('schedules.create', compact('services'));
+        $schedules = Schedule::included()->filter()->get();
+        return response()->json($schedules);
     }
 
     public function store(Request $request)
@@ -29,22 +22,14 @@ class ScheduleController extends Controller
             'service_id' => 'nullable|exists:services,id'
         ]);
 
-        Schedule::create($request->all());
-
-        return redirect()->route('schedules.index')
-            ->with('success', 'Horario creado correctamente');
+        $schedule = Schedule::create($request->all());
+        return response()->json($schedule);
     }
 
-    public function show(Schedule $schedule)
+    public function show($id)
     {
-        $schedule->load('service');
-        return view('schedules.show', compact('schedule'));
-    }
-
-    public function edit(Schedule $schedule)
-    {
-        $services = Service::all();
-        return view('schedules.edit', compact('schedule', 'services'));
+        $schedule = Schedule::included()->findOrFail($id);
+        return response()->json($schedule);
     }
 
     public function update(Request $request, Schedule $schedule)
@@ -57,15 +42,12 @@ class ScheduleController extends Controller
         ]);
 
         $schedule->update($request->all());
-
-        return redirect()->route('schedules.index')
-            ->with('success', 'Horario actualizado correctamente');
+        return response()->json($schedule);
     }
 
     public function destroy(Schedule $schedule)
     {
         $schedule->delete();
-        return redirect()->route('schedules.index')
-            ->with('success', 'Horario eliminado correctamente');
+        return response()->json(['message' => 'Horario eliminado correctamente']);
     }
 }

@@ -2,22 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Forum;
-use App\Models\User;
+use Illuminate\Http\Request;
 
 class ForumController extends Controller
 {
     public function index()
-{$forums = Forum::paginate(10); // O el número de ítems por página que quieras
-
-    return view('forums.index', compact('forums'));
-}
-
-    public function create()
     {
-        $users = User::all();
-        return view('forums.create', compact('users'));
+        $forums = Forum::included()->filter()->get();
+        return response()->json($forums);
     }
 
     public function store(Request $request)
@@ -26,30 +19,17 @@ class ForumController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'date' => 'required|date',
-            'user_id' => 'nullable|exists:users,id'
+            'user_id' => 'nullable|exists:users,id',
         ]);
 
-        Forum::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'date' => $request->date,
-            'user_id' => $request->user_id
-        ]);
-
-        return redirect()->route('forums.index')
-            ->with('success', 'Foro creado correctamente');
+        $forum = Forum::create($request->all());
+        return response()->json($forum, 201);
     }
 
-    public function show(Forum $forum)
+    public function show($id)
     {
-        $forum->load(['user', 'topics']);
-        return view('forums.show', compact('forum'));
-    }
-
-    public function edit(Forum $forum)
-    {
-        $users = User::all();
-        return view('forums.edit', compact('forum', 'users'));
+        $forum = Forum::included()->findOrFail($id);
+        return response()->json($forum);
     }
 
     public function update(Request $request, Forum $forum)
@@ -58,19 +38,16 @@ class ForumController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'date' => 'required|date',
-            'user_id' => 'nullable|exists:users,id'
+            'user_id' => 'nullable|exists:users,id',
         ]);
 
         $forum->update($request->all());
-
-        return redirect()->route('forums.index')
-            ->with('success', 'Foro actualizado correctamente');
+        return response()->json($forum);
     }
 
     public function destroy(Forum $forum)
     {
         $forum->delete();
-        return redirect()->route('forums.index')
-            ->with('success', 'Foro eliminado correctamente');
+        return response()->json(['message' => 'Foro eliminado correctamente']);
     }
 }
