@@ -10,16 +10,35 @@ class NotificationSeeder extends Seeder
 {
     public function run(): void
     {
-        // Asegurarse de que haya entrenadores primero
-        Trainer::factory()->count(5)->create();
+        $trainers = [
+            ['name' => 'Carlos Pérez', 'email' => 'carlos@example.com'],
+            ['name' => 'Lucía Martínez', 'email' => 'lucia@example.com'],
+            ['name' => 'Andrés Gómez', 'email' => 'andres@example.com'],
+            ['name' => 'Marta Ríos', 'email' => 'marta@example.com'],
+            ['name' => 'Juan Torres', 'email' => 'juan@example.com'],
+        ];
 
-        $trainers = Trainer::all();
+        foreach ($trainers as &$trainer) {
+            $trainer = Trainer::firstOrCreate(
+                ['email' => $trainer['email']],
+                [
+                    'name' => $trainer['name'],
+                    'password' => bcrypt('123456'),
+                ]
+            );
+        }
 
         foreach ($trainers as $trainer) {
             Notification::create([
                 'Trainer_id'  => $trainer->id,
-                'Title'       => 'Notificación para ' . $trainer->name,
-                'Description' => 'Esta es una notificación de prueba para el entrenador ' . $trainer->name,
+                'Title'       => 'Primera notificación para ' . $trainer->name,
+                'Description' => 'Esta es la primera notificación de prueba para el entrenador ' . $trainer->name,
+            ]);
+
+            Notification::create([
+                'Trainer_id'  => $trainer->id,
+                'Title'       => 'Segunda notificación para ' . $trainer->name,
+                'Description' => 'Esta es la segunda notificación de prueba para el entrenador ' . $trainer->name,
             ]);
         }
     }
